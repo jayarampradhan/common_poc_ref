@@ -1,0 +1,117 @@
+package com.uimirror.api.usr.basic.rule;
+//generated from Decision Table
+import com.uimirror.api.common.user.bean.UserFieldDocument;
+import java.util.List;
+declare RegisterBean
+  @Role(event)
+ end
+// rule values at C14, header at C9
+rule "Rule for Last Name Macthing 1 (Part 1 of 5)"
+	salience 65522
+	when
+		$form:UserFieldDocument(facts contains "name.last" || facts contains "Name.Last" || facts contains "NAME.LAST");
+	then
+		$form.addToState("name.last");
+end
+
+// rule values at C15, header at C9
+rule "Rule for First Name Matching 2 (Part 2 of 5)"
+	salience 65521
+	when
+		$form:UserFieldDocument(facts contains "name.first" || facts contains "Name.First" || facts contains "NAME.FIRST");
+	then
+		$form.addToState("name.first");
+end
+
+// rule values at C16, header at C9
+rule "Rule for Name Display Matching 3 (Part 3 of 5)"
+	salience 65520
+	when
+		$form:UserFieldDocument(facts contains "name.display" || facts contains "Name.Display" || facts contains "NAME.DISPLAY");
+	then
+		$form.addToState("name.display");
+end
+
+// rule values at C17, header at C9
+rule "Rule for Middle Name Matching 4 (Part 3 of 5)"
+	salience 65519
+	when
+		$form:UserFieldDocument(facts contains "name.middle" || facts contains "Name.Middle" || facts contains "NAME.MIDDLE");
+	then
+		$form.addToState("name.middle");
+end
+
+// rule values at C18, header at C9
+rule "Rule for Call Out Name Matching 5 (Part 5 of 5)"
+	salience 65518
+	when
+		$form:UserFieldDocument(facts contains "name.callout" || facts contains "Name.CallOut" || facts contains "Name.Callout" || facts contains "NAME.CALLOUT");
+	then
+		$form.addToState("name.callout");
+end
+
+// rule values at C19, header at C9
+rule "Rule for Sex Matching 6"
+	salience 65517
+	when
+		$form:UserFieldDocument(facts contains "sex" || facts contains "Sex" || facts contains "SEX");
+	then
+		$form.addToState("sex");
+end
+
+// rule values at C20, header at C9
+rule "Rule for Friend Request Privacy Matching 7 (Part 1 of 5)"
+	salience 65516
+	when
+		$form:UserFieldDocument(facts contains "privacy.friendrequest" || facts contains "Privacy.Friendrequest" || facts contains "Privacy.FriendRequest" || facts contains "PRIVACY.FRIENDREQUEST");
+	then
+		$form.addToState("privacy.friendrequest");
+end
+
+// rule values at C21, header at C9
+rule "Rule for Message Privacy Matching 8 (Part 2 of 5)"
+	salience 65515
+	when
+		$form:UserFieldDocument(facts contains "privacy.msg" || facts contains "Privacy.Msg" || facts contains "PRIVACY.MSG");
+	then
+		$form.addToState("privacy.msg");
+end
+
+// rule values at C22, header at C9
+rule "Rule for Post Privacy Matching 9 (Part 3 of 5)"
+	salience 65514
+	when
+		$form:UserFieldDocument(facts contains "privacy.post" || facts contains "Privacy.Post" || facts contains "PRIVACY.POST");
+	then
+		$form.addToState("privacy.post");
+end
+
+// rule values at C23, header at C9
+rule "Rule for Search By Email Privacy Matching 10 (Part 4 of 5)"
+	salience 65513
+	when
+		$form:UserFieldDocument(facts contains "privacy.search.email" || facts contains "Privacy.Search.Email" || facts contains "PRIVACY.SEARCH.EMAIL");
+	then
+		$form.addToState("privacy.search.email");
+end
+
+// rule values at C24, header at C9
+rule "Rule for Search By Mobile Privacy Matching 11 (Part 5 of 5)"
+	salience 65512
+	when
+		$form:UserFieldDocument(facts contains "privacy.search.mobile" || facts contains "Privacy.Search.Mobile" || facts contains "PRIVACY.SEARCH.MOBILE");
+	then
+		$form.addToState("privacy.search.mobile");
+end
+
+// rule values at C25, header at C9
+rule "Rule for User Active Status Matching 12"
+	salience 65511
+	when
+		$form:UserFieldDocument(facts contains "status" || facts contains "Status" || facts contains "STATUS");
+	then
+		$form.addToState("status");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+

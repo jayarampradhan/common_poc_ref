@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="true" reset="true">
+
+	<!-- Appenders -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="systemLog"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<!-- <param name="File" value="${log.logdir}/dom_ws_system.log" /> -->
+		<param name="File" value="/Users/Jayaram/appl/logs/uimirror/utility/uimirror_system.log" />
+		<param name="threshold" value="info" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd hh:mm},%6.6r]%-5p[%t]%x(%F:%L) - %m%n -%M"/>
+		</layout>
+	</appender>
+
+	<appender name="systemLogDebug"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<!-- <param name="File" value="${log.logdir}/dom_ws_system_debug.log" /> --> 
+		<param name="File" value="/Users/Jayaram/appl/logs/uimirror/utility/uimirror_system_debug.log" />
+		<param name="threshold" value="info" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd hh:mm},%6.6r]%-5p[%t]%x(%F:%L) - %m%n -%M"/>
+		</layout>
+	</appender>
+	
+	<appender name="cacheDebug"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<param name="File" value="/Users/Jayaram/appl/logs/uimirror/utility/cache_debug.log" />
+		<!-- <param name="File" value="${log.logdir}/cache_debug.log" /> -->
+		<param name="threshold" value="info" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{MM/dd/yyyy HH\:mm\:ss} %5p %c{1} - %m%n" />
+		</layout>
+	</appender>
+	
+	<logger name="org.springframework.test">
+		<level value="debug"/>
+		<appender-ref ref="console"/>
+	</logger>
+	
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework.core">
+		<level value="info" />
+		<appender-ref ref="systemLogDebug" />
+	</logger>	
+	
+	<logger name="org.springframework.beans">
+		<level value="info" />
+		<appender-ref ref="systemLogDebug" />
+	</logger>
+	
+	<logger name="org.springframework.context">
+		<level value="info" />
+		<appender-ref ref="systemLogDebug" />
+	</logger>
+
+	<logger name="org.springframework.http">
+		<level value="info" />
+		<appender-ref ref="systemLogDebug" />
+	</logger>
+
+	<logger name="org.springframework.web">
+		<level value="debug" />
+		<appender-ref ref="systemLogDebug" />
+	</logger>
+
+	<logger name="org.springframework.binding">
+		<level value="info" />
+		<appender-ref ref="systemLogDebug" />
+	</logger>
+
+ <!--  Caching Logs -->
+ <category name="net.sf.ehcache"  additivity="false">
+     <priority value="debug" />
+     <appender-ref ref="console" />
+     <appender-ref ref="systemLogDebug" />
+   </category>
+   <category name="net.sf.ehcache.config"  additivity="false">
+     <priority value="debug" />
+     <appender-ref ref="console" />
+     <appender-ref ref="systemLogDebug" />
+   </category>
+   <category name="net.sf.ehcache.distribution"  additivity="false">
+     <priority value="debug" />
+     <appender-ref ref="console" />
+     <appender-ref ref="systemLogDebug" />
+   </category>
+   
+   <category name="com.uimirror.api" additivity="false">
+		<priority value ="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="systemLogDebug"/>
+	</category>	
+	
+	<category name="com.uimirror.common" additivity="false">
+		<priority value ="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="systemLogDebug"/>
+	</category>	
+
+   <root>
+      <priority value ="debug" />
+      <appender-ref ref="console"/>
+   </root>
+</log4j:configuration>
+

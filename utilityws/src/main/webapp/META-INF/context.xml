@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    
+  <ResourceLink name="jdbc/uimirror" global="jdbc/uimirror"
+	type="javax.sql.DataSource" />
+</Context>

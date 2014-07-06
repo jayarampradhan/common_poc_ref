@@ -1,0 +1,568 @@
+[{
+    "commands":[
+        "set"
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC",
+        "Bangalore",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "separator":[
+    	"5",
+    	"4",
+    	"1"
+    ],
+    "exception":"Command Seprator should be equal or less than the Command length."
+},
+{
+    "commands":[
+        "set"
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC",
+        "Bangalore",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "separator":[
+    	"5",
+    	"4",
+    	"1"
+    ],
+    "exception":"Command Seprator should be equal or less than the Command length."
+},
+{
+    "commands":[
+        "set",
+        "unset",
+        "push"
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC"
+        
+    ],
+    "separator":[
+    	"5"
+    ],
+    "exception":"Fileds and Values should be equal length."
+},{
+    "commands":[
+        
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC",
+        "Bangalore",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "separator":[
+    	
+    ],
+    "exception":"There should be at least one command and field to execute against a field."
+},{
+    "commands":[
+        "set",
+        "unset",
+        "push"
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC",
+        "Bangalore",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "separator":[
+    	"15"
+    ],
+    "exception":"Command Seprator should be equal or less than the field length."
+},
+{
+    "commands":[
+        "set",
+        "unset",
+        "push"
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC",
+        "Bangalore",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "separator":[
+    	"5",
+    	"2",
+    	"1",
+    	"1"
+    ],
+    "exception":"Command Seprator should be equal or less than the Command length."
+},
+{
+    "commands":[
+        "unset",	
+        "set",
+        "push"
+    ],
+    "fields":[
+        "fname",
+        "lname"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick"
+    ],
+    "separator":[
+    	"2"
+    ],
+    "exception":"Field Length should be greater or equal to command size."
+},
+{
+    "commands":[
+        "set",
+        "unset",
+        "push"
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC",
+        "Bangalore",
+        "test1",
+        "test2"
+    ],
+    "separator":[
+    
+    ],
+    "exception":"Fileds and Values should be equal length."
+},{
+    "commands":[
+        "push"
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC",
+        "Bangalore",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "separator":[
+    	"5",
+    	"5"
+    ],
+    "exception":"Command Seprator should be equal or less than the Command length."
+},
+{
+    "commands":[
+        "set"
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC",
+        "Bangalore",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "separator":[
+    	"5",
+    	"4",
+    	"1"
+    ],
+    "exception":"Command Seprator should be equal or less than the Command length."
+},
+{
+    "commands":[
+        "set"
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC",
+        "Bangalore",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "separator":[
+    	"5",
+    	"4",
+    	"1"
+    ],
+    "exception":"Command Seprator should be equal or less than the Command length."
+},
+{
+    "commands":[
+        "set",
+        "unset",
+        "push"
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC"
+        
+    ],
+    "separator":[
+    	"5"
+    ],
+    "exception":"Fileds and Values should be equal length."
+},{
+    "commands":[
+        
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC",
+        "Bangalore",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "separator":[
+    	
+    ],
+    "exception":"There should be at least one command and field to execute against a field."
+},{
+    "commands":[
+        "set",
+        "unset",
+        "push"
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC",
+        "Bangalore",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "separator":[
+    	"15"
+    ],
+    "exception":"Command Seprator should be equal or less than the field length."
+},
+{
+    "commands":[
+        "set",
+        "unset",
+        "push"
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC",
+        "Bangalore",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "separator":[
+    	"5",
+    	"2",
+    	"1",
+    	"1"
+    ],
+    "exception":"Command Seprator should be equal or less than the Command length."
+},
+{
+    "commands":[
+        "unset",	
+        "set",
+        "push"
+    ],
+    "fields":[
+        "fname",
+        "lname"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick"
+    ],
+    "separator":[
+    	"2"
+    ],
+    "exception":"Field Length should be greater or equal to command size."
+},
+{
+    "commands":[
+        "set",
+        "unset",
+        "push"
+    ],
+    "fields":[
+    ],
+    "values":[
+    ],
+    "separator":[
+    
+    ],
+    "exception":"There should be at least one command and field to execute against a field."
+},{
+    "commands":[
+        "push",
+        "set"
+    ],
+    "fields":[
+        "fname",
+        "lname",
+        "sex",
+        "dob",
+        "locale",
+        "tz",
+        "localtion",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "values":[
+    	"Gourang",
+        "Malick",
+        "M",
+        "12-12-2013",
+        "en_US",
+        "UTC",
+        "Bangalore",
+        "test1",
+        "test2",
+        "test3"
+    ],
+    "separator":[
+    	"5",
+    	"1",
+    	"3"
+    ],
+    "exception":"Command Seprator should be equal or less than the Command length."
+}
+]

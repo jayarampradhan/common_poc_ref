@@ -1,0 +1,53 @@
+{
+	"testdata": 
+	[
+		{
+			"client_meta": "assmjhasjhaskashkashk",
+			"pwd": "1234",
+			"type": "form",
+			"user_id": "jayaramimca@gmail.com",
+			"ip": "127.0.0.1",
+			"keepmelogin":"Y"
+		},
+
+		{
+			"client_meta": "assmjhasjhaskashkashk",
+			"pwd": "",
+			"type": "form",
+			"user_id": "jayaramimca@gmail.com",
+			"ip": "127.0.0.1",
+			"keepmelogin":"Y"
+		},
+
+		{
+			"client_meta": "assmjhasjhaskashkashk",
+			"type": "form",
+			"user_id": "jayaramimca@gmail.com",
+			"ip": "127.0.0.1",
+			"keepmelogin":"N"
+		},
+
+		{
+			"client_meta": "assmjhasjhaskashkashk",
+			"pwd": "12",
+			"type": "form",
+			"user_id": "jayaramimca@gmail.com",
+			"ip": "127.0.0.1",
+			"keepmelogin":"Y"
+		},
+
+		{
+			"client_meta": "assmjhasjhaskashkashk",
+			"pwd": "1",
+			"type": "form",
+			"user_id": "jayaramimca@gmail.com",
+			"ip": "127.0.0.1",
+			"keepmelogin":"Y"
+		}
+	],
+
+	"loaddata": 
+	[
+		
+	]
+}

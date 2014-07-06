@@ -1,0 +1,151 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.uimirror</groupId>
+	<artifactId>threadpool</artifactId>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
+
+	<name>threadpool</name>
+	<url>http://maven.apache.org</url>
+
+	<organization>
+		<name>The UI Mirror team</name>
+		<url>http://www.uimirror.com</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>jpradha</id>
+			<name>Jayaram Pradhan</name>
+			<email>jayaramimca AT gmail DOT com</email>
+			<roles>
+				<role>Project admin</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<uimirro.comon.version>0.0.1</uimirro.comon.version>
+		<junit.version>4.10</junit.version>
+	</properties>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>2.7.1</version>
+				<configuration>
+					<linkXRef>false</linkXRef>
+					<sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+					<targetJdk>1.7</targetJdk>
+					<failOnViolation>true</failOnViolation>
+					<failurePriority>5</failurePriority>
+					<minimumTokens>150</minimumTokens>
+					<verbose>true</verbose>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>pmd</goal>
+							<goal>check</goal>
+							<goal>cpd</goal>
+							<goal>cpd-check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.5.2</version>
+				<configuration>
+					<formats>
+						<format>html</format>
+					</formats>
+				</configuration>
+				<executions>
+					<execution>
+						<id>cobertura-exec</id>
+						<phase>package</phase>
+						<goals>
+							<goal>cobertura</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<!-- Plugin that gives ability to generate your projects site -->
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.0-beta-2</version>
+				<configuration>
+					<!-- Reports that will be displayed on a generated site -->
+					<reportPlugins>
+						<!-- Produces a cross-reference of the project's sources. This is useful 
+							for other reports like PMD or Checkstyle. When this plugin is used with checkstyle 
+							you can see code that produces style warning/error in the report. -->
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-jxr-plugin</artifactId>
+							<version>2.1</version>
+							<configuration>
+								<aggregate>true</aggregate>
+							</configuration>
+						</plugin>
+						<!-- Checks projects code conventions -->
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-checkstyle-plugin</artifactId>
+							<version>2.6</version>
+							<configuration>
+								<configLocation>check_style.xml</configLocation>
+							</configuration>
+						</plugin>
+					</reportPlugins>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- UI Mirror Common -->
+		<dependency>
+			<groupId>com.uimirror</groupId>
+			<artifactId>common</artifactId>
+			<version>${uimirro.comon.version}</version>
+		</dependency>
+	</dependencies>
+</project>

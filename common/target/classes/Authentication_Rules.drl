@@ -1,0 +1,141 @@
+package com.uimirror.api.autentication.rule;
+//generated from Decision Table
+import com.uimirror.common.bean.validation.Errors;
+import com.uimirror.common.authentication.AuthenticationBean;
+import java.util.Map;
+import java.util.List;
+import function org.apache.commons.validator.routines.EmailValidator.getInstance;
+import function com.uimirror.common.util.StringUtility.checkEmptyString;
+import function com.uimirror.common.util.CommonValidationUtil.isIpValid;
+import function com.uimirror.common.util.CommonValidationUtil.isValidUserId;
+global com.uimirror.common.authentication.service.AuthenticationCheckPoint $service;
+declare AuthenticationBean
+  @Role(event)
+ end
+// rule values at C14, header at C9
+rule "Meta Data Validation 1"
+	salience 65522
+	when
+		$form:AuthenticationBean($form.getFact("client_meta") not matches "(?s).+");$errors:Errors();
+	then
+		$errors.addError($form , "user_id", "user_id", "Seems you are using some cruler, use Browser.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C15, header at C9
+rule "IP Validation 2"
+	salience 65521
+	when
+		$form:AuthenticationBean(eval(!isIpValid((String)$form.getFact("ip"))));$errors:Errors();
+	then
+		$errors.addError($form , "user_id", "user_id", "Seems you are using some cruler, use Browser.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C16, header at C9
+rule "Authentication Type Validation 3"
+	salience 65520
+	when
+		$form:AuthenticationBean(facts["type"] not in ("form","cookie"));$errors:Errors();
+	then
+		$errors.addError($form , "user_id", "user_id", "Currently Authentication is supported via form or cookie.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C17, header at C9
+rule "Rule for User ID Validation 4"
+	salience 65519
+	when
+		$form:AuthenticationBean(facts["type"] matches "form", eval(!isValidUserId((String)$form.getFact("user_id"))));$errors:Errors();
+	then
+		$errors.addError($form , "user_id", "User Id", "Use your registered email id for login.");
+end
+
+// rule values at C18, header at C9
+rule "Rule for User ID Type Validation 5"
+	salience 65518
+	when
+		$form:AuthenticationBean(facts["type"] matches "form", facts["id_type"] not in ("E","M"));$errors:Errors();
+	then
+		$errors.addError($form , "user_id", "User Id", "Use your registered email id or mobile no. for login.");
+end
+
+// rule values at C19, header at C9
+rule "Rule for Password Validation 6"
+	salience 65517
+	when
+		$form:AuthenticationBean(facts["type"] matches "form", facts["pwd"] not matches "(?s).+");$errors:Errors();
+	then
+		$errors.addError($form , "pwd", "Password", "Use your password for login.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C20, header at C9
+rule "Rule for User Validation 7"
+	salience 65516
+	when
+		$form:AuthenticationBean(facts["type"] matches "form", $form.getFact("client_meta") matches "(?s).+" && eval(isIpValid((String)$form.getFact("ip"))) && eval(isValidUserId((String)$form.getFact("user_id"))) && facts["pwd"] matches "(?s).+");$errors:Errors();
+	then
+		Map<String, Object> res =  $service.checkCredentials((String)$form.getFact("user_id"), (String)$form.getFact("pwd"), (String)$form.getFact("id_type"), (String)$form.getFact("keepmelogin"), (String)$form.getFact("client_meta"), (String)$form.getFact("ip"));
+if(res != null){
+ $form.setStates(res);
+}else{
+ $errors.addError($form , "user_id", "user Id", "Use your Registered Email.");
+ $errors.addError($form , "pwd", "Password", "Use the correct password.");
+}
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C21, header at C9
+rule "Rule for profile ID Validation 8"
+	salience 65515
+	when
+		$form:AuthenticationBean(facts["type"] matches "cookie", facts["prfid"] not matches "^[0-9]+");$errors:Errors();
+	then
+		$errors.addError($form , "user_id", "user_id", "Possibly User has logged out from session, re-login to your account.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C22, header at C9
+rule "Rule for Auth ID Validation 9"
+	salience 65514
+	when
+		$form:AuthenticationBean(facts["type"] matches "cookie", facts["authid"] not matches "^[0-9]+");$errors:Errors();
+	then
+		$errors.addError($form , "user_id", "user_id", "Possibly User has logged out from session, re-login to your account.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C23, header at C9
+rule "Rule for Token Validation 10"
+	salience 65513
+	when
+		$form:AuthenticationBean(facts["type"] matches "cookie", facts["token"] not matches ".{5}");$errors:Errors();
+	then
+		$errors.addError($form , "user_id", "user_id", "Possibly User has logged out from session, re-login to your account.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C24, header at C9
+rule "Rule for Cookie Login Validation 11"
+	salience 65512
+	when
+		$form:AuthenticationBean(facts["type"] matches "cookie", $form.getFact("client_meta") matches "(?s).+" && eval(isIpValid((String)$form.getFact("ip"))) && facts["prfid"]  matches "^[0-9]+" && facts["authid"] matches "^[0-9]+" && facts["token"] matches ".{5}");$errors:Errors();
+	then
+		String authId = (String)$form.getFact("authid");
+String token = (String)$form.getFact("token");
+String profileId = (String)$form.getFact("prfid");
+String device = (String)$form.getFact("client_meta");
+String ip = (String)$form.getFact("ip");
+String prevAuthId = (String)$form.getFact("prvauthid");
+String prevToken = (String)$form.getFact("prvtoken");
+Map<String, Object> res =  $service.checkSession(authId, prevAuthId, token, prevToken, profileId, device, ip);
+if(res != null){
+ $form.setStates(res);
+}else{
+ $errors.addError($form , "user_id", "user_id", "Possibly User has logged out from session, re-login to your account.");
+}
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+

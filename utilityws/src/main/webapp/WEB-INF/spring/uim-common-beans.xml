@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:drools="http://drools.org/schema/drools-spring" xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+			http://drools.org/schema/drools-spring http://anonsvn.jboss.org/repos/labs/labs/jbossrules/trunk/drools-container/drools-spring/src/main/resources/org/drools/container/spring/drools-spring-1.0.0.xsd
+			http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
+			
+	<!-- Registration jsr303 validation -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+
+	<drools:kbase id="registrationRulekbase">
+		<drools:resources>
+			<drools:resource type="DRL" source="${reg.drl.path.spring}"/>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession id="registrationStatelessKSession" type="stateless" name="registrationStatelessKSession" kbase="registrationRulekbase"/>
+	
+	<!-- Resend Email Token -->
+	<drools:kbase id="resendTokenRulekbase">
+		<drools:resources>
+			<drools:resource type="DRL" source="${resend.mail.drl.path.spring}"/>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession id="resendTokenEmailStatelessKSession" type="stateless" name="resendTokenEmailStatelessKSession" kbase="resendTokenRulekbase"/>
+	
+	<!-- Verification DRL -->
+	<drools:kbase id="verificationRulekbase">
+		<drools:resources>
+			<drools:resource type="DRL" source="${vrfy.drl.path.spring}"/>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession id="verificationStatelessKSession" type="stateless" name="verificationStatelessKSession" kbase="verificationRulekbase"/>
+	
+	<!-- Authentication DRL -->
+	<drools:kbase id="authenticationRulekbase">
+		<drools:resources>
+			<drools:resource type="DRL" source="${authentication.drl.path.spring}"/>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession id="authenticationStatelessKSession" type="stateless" name="authenticationStatelessKSession" kbase="authenticationRulekbase"/>
+	
+	<!-- Comamnd DRL -->
+	<drools:kbase id="commandRulekbase">
+		<drools:resources>
+			<drools:resource type="DRL" source="${cmd.drl.path.spring}"/>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession id="commandStatelessKSession" type="stateless" name="commandStatelessKSession" kbase="commandRulekbase"/>
+	
+	<!-- User Basic Document Field DRL -->
+	<drools:kbase id="userBasicDocumentRulekbase">
+		<drools:resources>
+			<drools:resource type="DRL" source="${user.basic.field.drl.path.spring}"/>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession id="userBasicDocumentStatelessKSession" type="stateless" name="userBasicDocumentStatelessKSession" kbase="userBasicDocumentRulekbase"/>
+	
+	<bean id="registerationService" class="com.uimirror.api.common.register.service.RegisterationServiceImpl">
+		<property name="baseUrl" value="${vrfy.url}"/>
+	</bean>
+	<bean id="verificationService" class="com.uimirror.api.common.verify.service.VerificationServiceImpl"/>
+	<bean id="authenticationService" class="com.uimirror.common.authentication.service.AuthenticationServiceImpl"/>
+	<bean id="authenticationCheckPoint" class="com.uimirror.common.authentication.service.AuthenticationCheckPoint"/>
+	<bean id="registerCheckPoint" class="com.uimirror.api.common.register.service.RegisterCheckPoint"/>
+	<bean id="verificationCheckPoint" class="com.uimirror.api.common.verify.service.VerificationCheckPoint"/>
+	<bean id="resendTokenEmailCheckPoint" class="com.uimirror.api.common.register.service.ResendTokenEmailCheckPoint"/>
+	<bean id="userService" class="com.uimirror.api.common.user.service.UserServiceImpl"/>
+	
+	<!-- Transformer Factory -->
+	<bean id="transformerFactory" class="org.springframework.beans.factory.config.ServiceLocatorFactoryBean">
+		<property name="serviceLocatorInterface" value="com.uimirror.common.transformer.TransformerFactory"/>
+	</bean>
+
+	<!-- Dao Beans -->
+	<bean id="tempUserDao" class="com.uimirror.api.common.register.dao.TempUserDaoImpl"/>
+	<bean id="verificationDao" class="com.uimirror.api.common.verify.dao.VerificationDaoImpl"/>
+	<bean id="authenticationDao" class="com.uimirror.common.authentication.dao.AuthenticationDaoImpl"/>
+	<bean id="userDao" class="com.uimirror.api.common.user.dao.UserDaoImpl"/>
+	<bean id="authorizationDao" class="com.uimirror.common.authorization.dao.AuthorizationDaoImpl"/>
+	<bean id="userDetailsDao" class="com.uimirror.api.common.user.dao.UserDetailsDaoImpl"/>
+	<bean id="deviceDao" class="com.uimirror.common.meta.dao.DeviceDaoImpl"/>
+
+</beans>

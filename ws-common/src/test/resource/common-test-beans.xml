@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:drools="http://drools.org/schema/drools-spring" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://drools.org/schema/drools-spring http://anonsvn.jboss.org/repos/labs/labs/jbossrules/trunk/drools-container/drools-spring/src/main/resources/org/drools/container/spring/drools-spring-1.0.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+	
+	
+	<context:annotation-config />
+	<context:component-scan base-package="com.uimirror.api.common"/>
+	<context:component-scan base-package="com.uimirror.common">
+		<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
+	</context:component-scan>
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:application-common-test.properties</value>
+				<!-- <value>file:${data.directory}/ApplicationResource.properties</value> -->
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders">
+			<value>true</value>
+		</property>
+	</bean>
+	
+	<!-- <bean id="uimirrorDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/uimirror" />
+	</bean> -->
+	
+	<!-- Transaction management -->
+	<tx:annotation-driven />
+	<!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="uimirrorDataSource" />
+	</bean> -->
+
+	<!-- <util:map id="test">
+		<entry key="applicantRepository" value-ref="applicantRepository"></entry>
+	</util:map> -->
+	<!-- <bean id="collaborators" class="com.uimirror.api.common.validation.Collaborators">
+	 <constructor-arg ref="test"/>
+	</bean> -->
+	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+
+	<drools:kbase id="registrationRulekbase">
+		<drools:resources>
+			<drools:resource type="DRL" source="classpath:Registration_Rules.drl"/>
+		</drools:resources>
+		<!-- <drools:configuration>
+			<drools:multithread enabled="true" max-threads="2"/>
+		</drools:configuration> -->
+	</drools:kbase>
+
+	<drools:ksession id="registrationStatelessKSession" type="stateless" name="registrationStatelessKSession" kbase="registrationRulekbase">
+		<drools:batch>
+			<!-- <drools:set-global identifier="$service" ref="registerationDao"/> -->
+			<drools:fire-until-halt/>
+		</drools:batch>
+	</drools:ksession>
+	
+	<!-- Resend Email Token -->
+	<drools:kbase id="resendTokenRulekbase">
+		<drools:resources>
+			<drools:resource type="DRL" source="classpath:Resend_Email_Token_Rules.drl"/>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession id="resendTokenEmailStatelessKSession" type="stateless" name="resendTokenEmailStatelessKSession" kbase="resendTokenRulekbase"/>
+	
+	<!-- Verification DRL -->
+	<drools:kbase id="verificationRulekbase">
+		<drools:resources>
+			<drools:resource type="DRL" source="classpath:Verification_Rules.drl"/>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession id="verificationStatelessKSession" type="stateless" name="verificationStatelessKSession" kbase="verificationRulekbase"/>
+	
+	<!-- Authnetication DRL -->
+	<drools:kbase id="authenticationRulekbase">
+		<drools:resources>
+			<drools:resource type="DRL" source="classpath:Authentication_Rules.drl"/>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession id="authenticationStatelessKSession" type="stateless" name="authenticationStatelessKSession" kbase="authenticationRulekbase"/>
+	
+	<!-- Comamnd DRL -->
+	<drools:kbase id="commandRulekbase">
+		<drools:resources>
+			<drools:resource type="DRL" source="classpath:Modify_Commands_Rules.drl"/>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession id="commandStatelessKSession" type="stateless" name="commandStatelessKSession" kbase="commandRulekbase"/>
+	
+	<!-- User Basic Document Field DRL -->
+	<drools:kbase id="userBasicDocumentRulekbase">
+		<drools:resources>
+			<drools:resource type="DRL" source="classpath:User_Basic_Fields_Rules.drl"/>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession id="userBasicDocumentStatelessKSession" type="stateless" name="userBasicDocumentStatelessKSession" kbase="userBasicDocumentRulekbase"/>
+	
+	<bean id="registerationService" class="com.uimirror.api.common.register.service.RegisterationServiceImpl">
+		<property name="baseUrl" value="${vrfy.url}"/>
+	</bean>
+	<bean id="tempUserDao" class="com.uimirror.api.common.register.dao.TempUserDaoImpl"/>
+	<bean id="verificationService" class="com.uimirror.api.common.verify.service.VerificationServiceImpl"/>
+	<bean id="verificationDao" class="com.uimirror.api.common.verify.dao.VerificationDaoImpl"/>
+	<bean id="authenticationService" class="com.uimirror.common.authentication.service.AuthenticationServiceImpl"/>
+	<bean id="userService" class="com.uimirror.api.common.user.service.UserServiceImpl"/>
+	
+	<!-- Transformer Factory -->
+	<bean id="transformerFactory" class="org.springframework.beans.factory.config.ServiceLocatorFactoryBean">
+		<property name="serviceLocatorInterface" value="com.uimirror.common.transformer.TransformerFactory"/>
+	</bean>
+	
+	<bean id="authenticationDao" class="com.uimirror.common.authentication.dao.AuthenticationDaoImpl"/>
+	<!-- <bean id="authenticationCheckPoint" class="com.uimirror.common.authentication.service.AuthenticationCheckPoint"/> -->
+	<!-- <bean id="userDao" class="com.uimirror.api.common.user.dao.UserDaoImpl"/> -->
+	<bean id="authorizationDao" class="com.uimirror.common.authorization.dao.AuthorizationDaoImpl"/>
+	<!-- <bean id="registerCheckPoint" class="com.uimirror.api.common.register.service.RegisterCheckPoint"/> -->
+	<bean id="userDetailsDao" class="com.uimirror.api.common.user.dao.UserDetailsDaoImpl"/>
+	<!-- <bean id="verificationCheckPoint" class="com.uimirror.api.common.verify.service.VerificationCheckPoint"/> -->
+	<!-- <bean id="resendTokenEmailCheckPoint" class="com.uimirror.api.common.register.service.ResendTokenEmailCheckPoint"/> -->
+	<bean id="deviceDao" class="com.uimirror.common.meta.dao.DeviceDaoImpl"/>
+	
+	<!-- Mongo Options Factory -->
+  	<bean id="mongoOptionsFactory" class="com.uimirror.common.dao.MongoOptionsFactory">
+  		<property name="maxPoolSize" value="${uimirror.mongo.maxpoolsize:20}"/>
+  		<property name="connectTimeout" value="${uimirror.mongo.connecttimeout:2000}"/>
+  		<property name="readPreference" value="#{T(com.mongodb.ReadPreference).secondaryPreferred()}"/>
+  		<property name="writeConcern" value="#{T(com.mongodb.WriteConcern).ACKNOWLEDGED}"/>
+  	</bean>
+  	
+  	<!-- Mongo Options -->
+  	<bean id="mongoOptions" factory-bean="mongoOptionsFactory" factory-method="getMongoOptions"/>
+  	
+  	<!-- Mongo Client Instance -->
+  	<bean id="mongo" class="com.mongodb.MongoClient">
+  		<constructor-arg name="host" value="${uimirror.mongo.host}"/>
+  		<constructor-arg name="options" ref="mongoOptions"/>
+  	</bean>
+  	
+  	<!-- Mongo DB Factory -->
+  	<bean id="mongoDbFactory" class="com.uimirror.common.dao.MongoDbFactory" destroy-method="close">
+  		<constructor-arg name="mongo" ref="mongo"/>
+  		<property name="dbName" value="${uimirror.mongo.db.temp}"/>
+  	</bean>
+  	
+  	<!-- Mongo temp DB -->
+  	<bean id="uimTempDB" factory-bean="mongoDbFactory" factory-method="getDB"/>
+  	
+  	<!-- Mongo Collection Factory -->
+	<bean id="tempUserCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimTempDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.tempuser:uim_tmp_user}"/>
+	</bean>
+	<!-- Temp User Collection-->
+	<bean id="tempUserCollection" factory-bean="tempUserCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- UI Mongo DB Factory -->
+  	<bean id="uimMongoDbFactory" class="com.uimirror.common.dao.MongoDbFactory" destroy-method="close">
+  		<constructor-arg name="mongo" ref="mongo"/>
+  		<property name="dbName" value="${uimirror.mongo.db.uimirror}"/>
+  	</bean>
+  	
+  	<!-- Mongo uimirror DB -->
+  	<bean id="uimDB" factory-bean="uimMongoDbFactory" factory-method="getDB"/>
+  	
+  	<!-- Mongo Collection Factory -->
+	<bean id="userCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.user:uim_user}"/>
+	</bean>
+	<!-- User Collection-->
+	<bean id="userCollection" factory-bean="userCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mongo Collection Factory for user details-->
+	<bean id="userDetailsCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.user.details:uim_user_details}"/>
+	</bean>
+	<!-- User Details Collection-->
+	<bean id="userDetailsCollection" factory-bean="userDetailsCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mongo Collection Factory for Authentication-->
+	<bean id="authenticationCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.user.authentication:uim_authentication}"/>
+	</bean>
+	<!-- Authentication Collection-->
+	<bean id="authenticationCollection" factory-bean="authenticationCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mongo Collection Factory for user Login Session-->
+	<bean id="loginSessionCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.user.login.session:uim_login_session}"/>
+	</bean>
+	<!-- Login Session Collection-->
+	<bean id="loginSessionCollection" factory-bean="loginSessionCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mongo Collection Factory for user Authorization-->
+	<bean id="authorizationCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.user.authorization:uim_authorization}"/>
+	</bean>
+	<!-- Authorization Collection-->
+	<bean id="authorizationSessionCollection" factory-bean="authorizationCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mongo Collection Factory for Device Meta-->
+	<bean id="deviceCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.meta.device:device}"/>
+	</bean>
+	<!-- Device Collection-->
+	<bean id="deviceCollection" factory-bean="deviceCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mongo Collection Factory -->
+	<bean id="seqCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.seq:uim_seq}"/>
+	</bean>
+	
+	<!-- Seq Collection-->
+	<bean id="seqCollection" factory-bean="seqCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Sequence Collection genrator -->
+	<bean id="sequenceDao" class="com.uimirror.common.dao.SequenceDaoImpl">
+		<property name="seqCollection" ref="seqCollection"/>
+	</bean>
+	
+	<!-- Mocks -->
+	<bean class="org.mockito.Mockito" factory-method="mock" id="authenticationCheckPoint">
+    	<constructor-arg value="com.uimirror.common.authentication.service.AuthenticationCheckPoint"/>
+  	</bean>
+  	<bean class="org.mockito.Mockito" factory-method="mock" id="registerCheckPoint">
+    	<constructor-arg value="com.uimirror.api.common.register.service.RegisterCheckPoint"/>
+  	</bean>
+  	<bean class="org.mockito.Mockito" factory-method="mock" id="verificationCheckPoint">
+    	<constructor-arg value="com.uimirror.api.common.verify.service.VerificationCheckPoint"/>
+  	</bean>
+  	
+  	<bean class="org.mockito.Mockito" factory-method="mock" id="resendTokenEmailCheckPoint">
+    	<constructor-arg value="com.uimirror.api.common.register.service.ResendTokenEmailCheckPoint"/>
+  	</bean>
+  	
+  	<bean class="org.mockito.Mockito" factory-method="mock" id="userDao">
+    	<constructor-arg value="com.uimirror.api.common.user.dao.UserDaoImpl"/>
+  	</bean>
+  	
+  	<!-- Email Sending -->
+  	<!-- Java Mail API -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host">
+			<value>${mail.host}</value>
+		</property>
+		<property name="port">
+			<value>${mail.port}</value>
+		</property>
+		<property name="protocol">
+			<value>${mail.protocol}</value>
+		</property>
+		<property name="username">
+			<value>${mail.username}</value>
+		</property>
+		<property name="password">
+			<value>${mail.password}</value>
+		</property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtps.auth">${mail.smtps.auth}</prop>
+				<prop key="mail.smtps.starttls.enable">${mail.smtps.starttls.enable}</prop>
+				<prop key="mail.smtps.debug">${mail.smtps.debug}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="mailer" class="com.uimirror.common.mail.Mailer">
+		<property name="mailSender" ref="mailSender"/>
+	</bean>
+  	
+
+</beans>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   		http://www.springframework.org/schema/context
+	   		http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+			http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
+
+	<!-- Caching Entries -->
+	<ehcache:annotation-driven cache-manager="ehCacheManager" />
+
+	<ehcache:config cache-manager="ehCacheManager">
+		<ehcache:evict-expired-elements
+			interval="6000000" />
+	</ehcache:config>
+
+	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation">
+			<value>${ehcache.path.spring}</value>
+			<!-- <value>file:${ehcahe.path.spring.test}</value> -->
+		</property>
+	</bean>
+
+	<!-- End Caching -->
+	
+	<!-- Utility bean configuration -->
+	<bean id="properties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location">
+			<value>classpath:${uimirror.utility.ws.property.loc}</value>
+		</property>
+	</bean>
+	
+	
+	<!-- Rest Configuration -->
+	<!-- <bean id="restController" class="org.springframework.web.servlet.mvc.ServletWrappingController">
+    	<property name="servletClass" value="com.sun.jersey.spi.spring.container.servlet.SpringServlet"/>
+    	<property name="initParameters">
+        	<props>
+            	<prop key="com.sun.jersey.api.json.POJOMappingFeature">true</prop>
+            	<prop key="contextConfigLocation">classpath*:com/business/beans.xml</prop>
+            	<prop key="com.sun.jersey.spi.container.ContainerRequestFilters">...</prop>
+            	<prop key="com.sun.jersey.spi.container.ContainerResponseFilters">...</prop>
+        	</props>
+    	</property>
+	</bean> -->
+
+	<bean id="propertyUtil" class="com.uimirror.common.util.PropertyUtil"
+		factory-method="createInstance" scope="singleton">
+		<constructor-arg ref="properties" />
+	</bean>
+	
+	<bean id="userAuthenticationService" class="com.uimirror.api.filter.service.UserAuthenticationServiceImpl"/>
+	
+	<!-- Email Sending -->
+  	<!-- Java Mail API -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host">
+			<value>${mail.host}</value>
+		</property>
+		<property name="port">
+			<value>${mail.port}</value>
+		</property>
+		<property name="protocol">
+			<value>${mail.protocol}</value>
+		</property>
+		<property name="username">
+			<value>${mail.username}</value>
+		</property>
+		<property name="password">
+			<value>${mail.password}</value>
+		</property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtps.auth">${mail.smtps.auth}</prop>
+				<prop key="mail.smtps.starttls.enable">${mail.smtps.starttls.enable}</prop>
+				<prop key="mail.smtps.debug">${mail.smtps.debug}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="mailer" class="com.uimirror.common.mail.Mailer">
+		<property name="mailSender" ref="mailSender"/>
+	</bean>
+
+
+</beans>

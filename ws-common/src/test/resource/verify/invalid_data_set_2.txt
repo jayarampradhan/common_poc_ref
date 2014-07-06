@@ -1,0 +1,55 @@
+{
+    "testdata":[
+        {
+            "ref":"email",
+            "prfid":"1",
+            "token":"hdgahs",
+            "email":""
+        },
+        {
+            "ref":"web",
+            "prfid":"2",
+            "token":"gfgs",
+            "email":"   "
+        },
+        {
+            "ref":"email",
+            "prfid":"3",
+            "token":"qwerer",
+            "email":"@.com"
+        },
+        {
+            "ref":"web",
+            "prfid":"4",
+            "token":"zcxz",
+            "email":"****"
+        },
+        {
+            "ref":"email",
+            "prfid":"5",
+            "token":"s3wyty",
+            "email":"###"
+        },
+        {
+            "ref":"web",
+            "prfid":"6",
+            "token":"zsas",
+            "email":"1232432"
+        },
+        {
+            "ref":"email",
+            "prfid":"7",
+            "token":"hhfp9008",
+            "email":"@"
+        },
+        {
+            "ref":"web",
+            "prfid":"8",
+            "token":"nmbn",
+            "email":"()"
+        }
+    ],
+    "loaddata":[
+        
+    ]
+}

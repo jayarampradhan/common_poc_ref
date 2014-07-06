@@ -1,0 +1,15 @@
+Hello :name:, \n\n\n
+\tA warm Welcome to FriendsMirror family\n\n
+Thank you for choosing FriendsMirror as your social partner\n
+Here you will find a new world of friends, family, colleuge and enmy, those who makes your real life real beautiful.\n
+We as a virtual world for you promising to you to bring a smile on your face what ever your mood may be.\n
+Here you will find a virtual breathe to enjoy, relax, shopping, managing daily life and little romanace as well.\n
+As a family member we will keep your world neat and clean for you, same time giving you the new fresh air.\n\n\n
+Please find below for some useful details to get connect to the virtual world\n
+User Name/Email: :email:
+Email Verification Code: :formverifyToken: \n
+Click the Link To validate: :verifylink:
+Please free to <a href='mailto:support@friendsmirror.com'>Write</a> us for any suggestion and issue\n
+Looking for your support to make this world beautiful only for you.\n\n\n\n\n\n\n
+Thanks,\n
+UIMirror Team\n

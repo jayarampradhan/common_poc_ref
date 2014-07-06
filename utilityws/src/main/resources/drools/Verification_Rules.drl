@@ -1,0 +1,112 @@
+package com.uimirror.api.verify.rule;
+//generated from Decision Table
+import com.uimirror.common.bean.validation.Errors;
+import com.uimirror.api.common.bean.VerifyBean;
+import java.util.Map;
+import java.util.List;
+import function org.apache.commons.validator.routines.EmailValidator.getInstance;
+global com.uimirror.api.common.verify.service.VerificationCheckPoint $service;
+declare VerifyBean
+  @Role(event)
+ end
+// rule values at C14, header at C9
+rule "Rule for Ref Validation 1"
+	salience 65522
+	when
+		$form:VerifyBean(facts["ref"] not in ("web","email"));$errors:Errors();
+	then
+		$errors.addError($form , "vrfTkn", "VerificationToken", "i.e Currently we support Verification from Web or link.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C15, header at C9
+rule "Rule for Temp Profile ID Validation 2"
+	salience 65521
+	when
+		$form:VerifyBean(facts["ref"] matches "web", facts["prfid"] not matches "^[0-9]+");$errors:Errors();
+	then
+		$errors.addError($form , "vrfTkn", "VerificationToken", "i.e Seems you are tampering the request for verification");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C16, header at C9
+rule "Rule for Email Validation 3"
+	salience 65520
+	when
+		$form:VerifyBean(facts["ref"] matches "web", eval(!getInstance().isValid((String)$form.getFact("email"))));$errors:Errors();
+	then
+		$errors.addError($form , "vrfTkn", "VerificationToken", "i.e Seems you are tampering the request for verification");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C17, header at C9
+rule "Rule for Token Validation 4"
+	salience 65519
+	when
+		$form:VerifyBean(facts["ref"] matches "web", facts["token"] not matches ".{4}");$errors:Errors();
+	then
+		$errors.addError($form , "vrfTkn", "VerificationToken", "Please enter the 4 character token sent to your email.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C18, header at C9
+rule "Rule for Profile Existance Validation 5"
+	salience 65518
+	when
+		$form:VerifyBean(facts["ref"] matches "web", facts["prfid"] matches "^[0-9]+" && eval(getInstance().isValid((String)$form.getFact("email"))) && facts["token"] matches ".{4}");$errors:Errors();
+	then
+		Map<String, Object> res = $service.tokenCheckPoint((String)$form.getFact("prfid"), (String)$form.getFact("email"), (String)$form.getFact("token"), "form");
+if(res != null){
+ $form.setStates(res);
+}else{
+ $errors.addError($form , "vrfTkn", "VerificationToken", "Try to create a new account.");
+}
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C19, header at C9
+rule "Rule for Temp Profile ID Validation 6"
+	salience 65517
+	when
+		$form:VerifyBean(facts["ref"] matches "email", facts["prfid"] not matches "^[0-9]+");$errors:Errors();
+	then
+		$errors.addError($form , "vrfTkn", "VerificationToken", "i.e Seems you are tampering the request for verification");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C20, header at C9
+rule "Rule for Email Validation 7"
+	salience 65516
+	when
+		$form:VerifyBean(facts["ref"] matches "email", eval(!getInstance().isValid((String)$form.getFact("email"))));$errors:Errors();
+	then
+		$errors.addError($form , "vrfTkn", "VerificationToken", "i.e Seems you are tampering the request for verification");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C21, header at C9
+rule "Rule for Token Validation 8"
+	salience 65515
+	when
+		$form:VerifyBean(facts["ref"] matches "email", facts["token"] not matches "(?s).+");$errors:Errors();
+	then
+		$errors.addError($form , "vrfTkn", "VerificationToken", "Seems you have altered the link sent to you");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C22, header at C9
+rule "Rule for Profile Existance Validation 9"
+	salience 65514
+	when
+		$form:VerifyBean(facts["ref"] matches "email", facts["prfid"] matches "^[0-9]+" && eval(getInstance().isValid((String)$form.getFact("email"))) && facts["token"] matches "(?s).+");$errors:Errors();
+	then
+		Map<String, Object> res = $service.tokenCheckPoint((String)$form.getFact("prfid"), (String)$form.getFact("email"), (String)$form.getFact("token"), "email");
+if(res != null){
+ $form.setStates(res);
+}else{
+ $errors.addError($form , "vrfTkn", "VerificationToken", "Try to create a new account.");
+}
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+

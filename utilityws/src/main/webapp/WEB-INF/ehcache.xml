@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="ehcache.xsd"
+        updateCheck="false" monitoring="autodetect"
+        dynamicConfig="true">
+    <!--Default Cache configuration. These will be applied to caches programmatically created through the CacheManager.
+
+        The following attributes are required for defaultCache:
+
+        maxInMemory       - Sets the maximum number of objects that will be created in memory
+        eternal           - Sets whether elements are eternal. If eternal,  timeouts are ignored and the element is never expired.
+        timeToIdleSeconds - Sets the time to idle for an element before it expires.
+                            i.e. The maximum amount of time between accesses before an element expires
+                            Is only used if the element is not eternal.
+                            Optional attribute. A value of 0 means that an Element can idle for infinity
+        timeToLiveSeconds - Sets the time to live for an element before it expires.
+                            i.e. The maximum time between creation time and when an element expires.
+                            Is only used if the element is not eternal.
+        overflowToDisk    - Sets whether elements can overflow to disk when the in-memory cache
+                            has reached the maxInMemory limit.
+
+     -->
+    <diskStore path="java.io.tmpdir"/>
+	<defaultCache
+            maxElementsInMemory="10000"
+            eternal="true"
+            timeToIdleSeconds="0"
+            timeToLiveSeconds="600000"
+            overflowToDisk="false"
+            />
+        
+	<cache name="com.uimirror.api.API_KEY_CACHE"
+        maxElementsInMemory="100000"
+        eternal="false"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="6000000"
+        overflowToDisk="true"/>
+        
+    <cache name="com.uimirror.api.USER_EXISTANCE_CACHE"
+        maxElementsInMemory="100000"
+        eternal="false"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="6000000"
+        overflowToDisk="true"/>
+        
+    <!-- <cache name="com.friendsmirror.register.LOGIN_EMAIL_ID_CACHE"
+        maxElementsInMemory="100000"
+        eternal="false"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="6000000"
+        overflowToDisk="true"/>
+        
+    <cache name="com.friendsmirror.register.APP_ID_CACHE"
+        maxElementsInMemory="100000"
+        eternal="false"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="6000000"
+        overflowToDisk="true"/>  
+        
+    <cache name="com.friendsmirror.login.USER_ID_EXISTS"
+        maxElementsInMemory="100000"
+        eternal="false"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="6000000"
+        overflowToDisk="true"/>
+        
+    <cache name="com.friendsmirror.register.FRIENDSMIRROR_PROFILE_BY_NAME_CACHE"
+        maxElementsInMemory="100000"
+        eternal="false"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="6000000"
+        overflowToDisk="true"/>
+        
+    <cache name="com.friendsmirror.register.FRIENDSMIRROR_PROFILE_BY_NAME_DOB_CACHE"
+        maxElementsInMemory="100000"
+        eternal="false"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="6000000"
+        overflowToDisk="true"/>
+    
+    <cache name="com.friendsmirror.register.FRIENDSMIRROR_PROFILE_BY_FIRST_NAME_DOB_CACHE"
+        maxElementsInMemory="100000"
+        eternal="false"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="6000000"
+        overflowToDisk="true"/>
+        
+    <cache name="com.friendsmirror.register.FRIENDSMIRROR_PROFILE_BY_FIRST_NAME_MONTH_CACHE"
+        maxElementsInMemory="100000"
+        eternal="false"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="6000000"
+        overflowToDisk="true"/>
+        
+    <cache name="com.friendsmirror.register.FRIENDSMIRROR_PROFILE_BY_FIRST_NAME_DATE_CACHE"
+        maxElementsInMemory="100000"
+        eternal="false"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="6000000"
+        overflowToDisk="true"/>
+        
+    <cache name="com.friendsmirror.register.FRIENDSMIRROR_PROFILE_BY_FIRST_NAME_YEAR_CACHE"
+        maxElementsInMemory="100000"
+        eternal="false"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="6000000"
+        overflowToDisk="true"/>
+        
+    <cache name="com.friendsmirror.register.FRIENDSMIRROR_PROFILE_BY_FIRST_NAME_SERIAL_CACHE"
+        maxElementsInMemory="100000"
+        eternal="false"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="6000000"
+        overflowToDisk="true"/>
+        
+   	<cache name="IS_USER_ALREDAY_BY_EMAIL_ID"
+        maxElementsInMemory="100000"
+        eternal="false"
+        timeToIdleSeconds="0"
+        overflowToDisk="true"
+        timeToLiveSeconds="6000000"/> 
+ 
+     <cache name="com.friendsmirror.register.vo.UserBasicProfileInfoVo"
+		maxElementsInMemory="100000"
+		eternal="false"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="6000000"
+		overflowToDisk="true"/>
+		
+	<cache name="org.hibernate.cache.UpdateTimestampsCache"
+		maxElementsInMemory="100000"
+		eternal="true"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="6000000"
+		overflowToDisk="true"/>
+			
+	<cache name="org.hibernate.cache.StandardQueryCache"
+		maxElementsInMemory="100000"
+		eternal="true"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="6000000"
+		overflowToDisk="true"/>
+	
+	<cache name="query.UserBasicProfilePerEmailId"
+		maxElementsInMemory="100000"
+		eternal="true"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="6000000"
+		overflowToDisk="true"/> -->
+</ehcache>

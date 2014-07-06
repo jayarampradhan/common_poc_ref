@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   		http://www.springframework.org/schema/context
+	   		http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="${uimirror.data.source}"/>
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg>
+			<ref bean="dataSource" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+  		<property name="dataSource" ref="dataSource"/>
+  		<qualifier value="transactionManager"/>
+  	</bean> -->
+  	
+  	<!-- Mongo Options Factory -->
+  	<bean id="mongoOptionsFactory" class="com.uimirror.common.dao.MongoOptionsFactory">
+  		<property name="maxPoolSize" value="${uimirror.mongo.maxpoolsize:20}"/>
+  		<property name="connectTimeout" value="${uimirror.mongo.connecttimeout:2000}"/>
+  		<property name="readPreference" value="#{T(com.mongodb.ReadPreference).secondaryPreferred()}"/>
+  		<property name="writeConcern" value="#{T(com.mongodb.WriteConcern).ACKNOWLEDGED}"/>
+  	</bean>
+  	
+  	<!-- Mongo Options -->
+  	<bean id="mongoOptions" factory-bean="mongoOptionsFactory" factory-method="getMongoOptions"/>
+  	
+  	<!-- Mongo Client Instance -->
+  	<bean id="mongo" class="com.mongodb.MongoClient">
+  		<constructor-arg name="host" value="${uimirror.mongo.host}"/>
+  		<constructor-arg name="options" ref="mongoOptions"/>
+  	</bean>
+  	
+  	<!-- Mongo DB Factory -->
+  	<bean id="mongoDbFactory" class="com.uimirror.common.dao.MongoDbFactory" destroy-method="close">
+  		<constructor-arg name="mongo" ref="mongo"/>
+  		<property name="dbName" value="${uimirror.mongo.db.temp}"/>
+  	</bean>
+  	
+  	<!-- Mongo temp DB -->
+  	<bean id="uimTempDB" factory-bean="mongoDbFactory" factory-method="getDB"/>
+  	
+  	<!-- Mongo Collection Factory -->
+	<bean id="tempUserCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimTempDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.tempuser:uim_tmp_user}"/>
+	</bean>
+	<!-- Temp User Collection-->
+	<bean id="tempUserCollection" factory-bean="tempUserCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- UI Mongo DB Factory -->
+  	<bean id="uimMongoDbFactory" class="com.uimirror.common.dao.MongoDbFactory" destroy-method="close">
+  		<constructor-arg name="mongo" ref="mongo"/>
+  		<property name="dbName" value="${uimirror.mongo.db.uimirror}"/>
+  	</bean>
+  	
+  	<!-- Mongo uimirror DB -->
+  	<bean id="uimDB" factory-bean="uimMongoDbFactory" factory-method="getDB"/>
+  	
+  	<!-- Mongo Collection Factory -->
+	<bean id="userCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.user:uim_user}"/>
+	</bean>
+	<!-- User Collection-->
+	<bean id="userCollection" factory-bean="userCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mongo Collection Factory for user details-->
+	<bean id="userDetailsCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.user.details:uim_user_details}"/>
+	</bean>
+	<!-- User Details Collection-->
+	<bean id="userDetailsCollection" factory-bean="userDetailsCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mongo Collection Factory for Authentication-->
+	<bean id="authenticationCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.user.authentication:uim_authentication}"/>
+	</bean>
+	<!-- Authentication Collection-->
+	<bean id="authenticationCollection" factory-bean="authenticationCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mongo Collection Factory for user Login Session-->
+	<bean id="loginSessionCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.user.login.session:uim_login_session}"/>
+	</bean>
+	<!-- Login Session Collection-->
+	<bean id="loginSessionCollection" factory-bean="loginSessionCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mongo Collection Factory for user Authorization-->
+	<bean id="authorizationCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.user.authorization:uim_authorization}"/>
+	</bean>
+	<!-- Authorization Collection-->
+	<bean id="authorizationSessionCollection" factory-bean="authorizationCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mongo Collection Factory for Device Meta-->
+	<bean id="deviceCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.meta.device:device}"/>
+	</bean>
+	
+	<!-- Device Collection-->
+	<bean id="deviceCollection" factory-bean="deviceCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mongo Collection Factory -->
+	<bean id="seqCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.seq:uim_seq}"/>
+	</bean>
+	
+	<!-- Seq Collection-->
+	<bean id="seqCollection" factory-bean="seqCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Sequence Collection genrator -->
+	<bean id="sequenceDao" class="com.uimirror.common.dao.SequenceDaoImpl">
+		<property name="seqCollection" ref="seqCollection"/>
+	</bean>
+	
+</beans>

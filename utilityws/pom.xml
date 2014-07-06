@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.uimirror</groupId>
+	<artifactId>uimirrorws</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1</version>
+	<name>utilityws Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	
+	<organization>
+		<name>The UI Mirror team</name>
+		<url>http://www.uimirror.com</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>jpradha</id>
+			<name>Jayaram Pradhan</name>
+			<email>jayaramimca AT gmail DOT com</email>
+			<roles>
+				<role>Project admin</role>
+			</roles>
+		</developer>
+	</developers>
+	
+	<!-- Standardize properties for version control -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<com.uimirror.uimirror-ws>0.0.1</com.uimirror.uimirror-ws>
+		<junit.version>4.10</junit.version>
+	</properties>
+	<!-- Testing library starts -->
+	<!-- Junit library -->
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- UImirror Main Java -->
+		<dependency>
+			<groupId>com.uimirror</groupId>
+			<artifactId>uimirror-ws</artifactId>
+			<version>${com.uimirror.uimirror-ws}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>uimirror</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,77 @@
+{
+	"testdata": 
+	[
+		{
+			"type": "cookie",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"prfid": "12345",
+			"authid": "2",
+			"prvauthid": "1",
+			"token": "abcde",
+			"prvtoken": "abcde",
+			"interval":"100"
+		},
+		{
+			"type": "cookie",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"prfid": "12345",
+			"authid": "2",
+			"prvauthid": "1",
+			"token": "abcde",
+			"prvtoken": "abcde",
+			"interval":"100"
+		},
+		{
+			"type": "cookie",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"prfid": "12345",
+			"authid": "2",
+			"prvauthid": "1",
+			"token": "abcde",
+			"prvtoken": "abcde",
+			"interval":"100"
+		},
+		{
+			"type": "cookie",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"prfid": "12345",
+			"authid": "2",
+			"prvauthid": "1",
+			"token": "abcde",
+			"prvtoken": "abcde",
+			"interval":"100"
+		},
+		{
+			"type": "cookie",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"prfid": "12345",
+			"authid": "2",
+			"prvauthid": "1",
+			"token": "abcde",
+			"prvtoken": "abcde",
+			"interval":"100"
+		},
+		{
+			"type": "cookie",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"prfid": "12345",
+			"authid": "2",
+			"prvauthid": "1",
+			"token": "abcde",
+			"prvtoken": "abcde",
+			"interval":"100"
+		}
+		
+	],
+
+	"loaddata": 
+	[
+		
+	]
+}

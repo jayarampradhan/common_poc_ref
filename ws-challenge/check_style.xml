@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC
+  "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+  "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<module name="Checker">
+  <property name="localeCountry" value="US"/>
+  <property name="localeLanguage" value="en"/>
+  <property name="charset" value="UTF-8"/>
+
+  <module name="TreeWalker">
+    <!-- needed by maven-checkstyle-plugin because of a bug -->
+    <property name="cacheFile" value="$\{cachefile\}"/>
+
+    <!-- needed to use suppression filters -->
+    <module name="FileContentsHolder"/>
+
+    <!-- annotations -->
+    <module name="AnnotationUseStyle"/>
+    <module name="MissingDeprecated"/>
+    <module name="MissingOverride"/>
+    <module name="PackageAnnotation"/>
+    <module name="SuppressWarnings"/>
+
+    <!-- block checks -->
+    <module name="EmptyBlock"/>
+    <module name="LeftCurly"/>
+    <module name="RightCurly"/>
+    <module name="AvoidNestedBlocks"/>
+
+    <!-- class design -->
+    <module name="VisibilityModifier">
+      <property name="packageAllowed" value="true"/>
+      <property name="protectedAllowed" value="true"/>
+    </module>
+    <module name="FinalClass"/>
+    <module name="InterfaceIsType"/>
+    <module name="HideUtilityClassConstructor"/>
+    <module name="DesignForExtension"/>
+    <module name="MutableException"/>
+    <module name="ThrowsCount"/>
+    <!-- <module name="InnerTypeLast"/> -->
+
+    <!-- coding -->
+    <module name="CovariantEquals"/>
+    <module name="DoubleCheckedLocking"/>
+    <module name="EmptyStatement"/>
+    <module name="EqualsAvoidNull"/>
+    <module name="EqualsHashCode"/>
+    <module name="HiddenField">
+      <property name="tokens" value="VARIABLE_DEF"/>
+      <property name="ignoreConstructorParameter" value="true"/>
+      <property name="ignoreSetter" value="true"/>
+    </module>
+    <module name="IllegalInstantiation">
+      <property name="classes" value="java.lang.Boolean,java.lang.BigInteger"/>
+    </module>
+    <module name="InnerAssignment"/>
+    <module name="MagicNumber">
+      <property name="ignoreNumbers" value="-1, 0, 1, 2"/>
+      <!-- <property name="ignoreHashCodeMethod" value="true"/> -->
+      <!-- <property name="ignoreAnnotation" value="true"/> -->
+    </module>
+    <module name="MissingSwitchDefault"/>
+    <module name="ModifiedControlVariable"/>
+    <module name="RedundantThrows"/>
+    <module name="SimplifyBooleanExpression"/>
+    <module name="SimplifyBooleanReturn"/>
+    <module name="StringLiteralEquality"/>
+    <!-- <module name="NestedForDepth"/> -->
+    <module name="NestedIfDepth"/>
+    <module name="NestedTryDepth"/>
+    <module name="NoClone"/>
+    <module name="NoFinalizer"/>
+    <module name="SuperClone"/>
+    <module name="SuperFinalize"/>
+    <module name="IllegalCatch"/>
+    <module name="IllegalThrows"/>
+    <module name="PackageDeclaration"/>
+    <module name="JUnitTestCase"/>
+    <module name="ReturnCount"/>
+    <module name="IllegalType"/>
+    <module name="DeclarationOrder"/>
+    <module name="ParameterAssignment"/>
+    <module name="ExplicitInitialization"/>
+    <module name="DefaultComesLast"/>
+    <module name="MissingCtor"/>
+    <module name="FallThrough"/>
+    <module name="MultipleStringLiterals">
+      <property name="ignoreStringsRegexp" value='^".{0,3}?"$'/>
+      <property name="allowedDuplicates" value="3"/>
+    </module>
+    <module name="MultipleVariableDeclarations"/>
+    <module name="UnnecessaryParentheses"/>
+    <!-- <module name="OneStatementPerLine"/> -->
+
+    <!-- imports -->
+    <module name="AvoidStarImport"/>
+    <module name="AvoidStaticImport"/>
+    <module name="IllegalImport"/>
+    <module name="RedundantImport"/>
+    <module name="UnusedImports"/>
+
+    <!-- javadoc comments -->
+    <module name="JavadocType">
+     <property name="scope" value="protected"/>
+    </module>
+    <module name="JavadocMethod">
+      <property name="scope" value="protected"/>
+      <property name="allowUndeclaredRTE" value="true"/>
+    </module>
+    <module name="JavadocVariable">
+      <property name="scope" value="protected"/>
+    </module>
+    <module name="JavadocStyle">
+      <property name="scope" value="protected"/>
+    </module>
+
+    <!-- metrics -->
+    <module name="BooleanExpressionComplexity"/>
+    <module name="ClassDataAbstractionCoupling"/>
+    <module name="ClassFanOutComplexity"/>
+    <module name="CyclomaticComplexity">
+      <property name="max" value="4"/>
+    </module>
+    <module name="NPathComplexity"/>
+    <module name="JavaNCSS">
+      <property name="methodMaximum" value="30"/>
+      <property name="classMaximum" value="500"/>
+      <property name="fileMaximum" value="1000"/>
+    </module>
+
+    <!-- miscellaneous -->
+    <module name="UncommentedMain"/>
+    <module name="UpperEll"/>
+    <module name="ArrayTypeStyle"/>
+    <!-- <module name="FinalParameters"/> -->
+    <module name="Indentation">
+      <property name="basicOffset" value="2"/>
+      <property name="braceAdjustment" value="0"/>
+      <property name="caseIndent" value="2"/>
+    </module>
+    <module name="TrailingComment"/>
+    <!-- <module name="OuterTypeFilename"/> -->
+
+    <!-- modifiers -->
+    <module name="ModifierOrder"/>
+    <module name="RedundantModifier"/>
+
+    <!-- naming conventions -->
+    <module name="AbstractClassName">
+      <property name="format" value="^Abstract.*$|^Base.*$|^Forwarding.*$|^.*Factory$"/>
+    </module>
+    <module name="ClassTypeParameterName"/>
+    <module name="ConstantName"/>
+    <module name="LocalFinalVariableName">
+      <property name="format" value="^[a-z][a-zA-Z0-9]*_?$"/>
+    </module>
+    <module name="LocalVariableName">
+      <property name="format" value="^[a-z][a-zA-Z0-9]*_?$"/>
+    </module>
+    <module name="MemberName">
+      <property name="format" value="^[a-z][a-zA-Z0-9]*_?$"/>
+    </module>
+    <module name="MethodName">
+      <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+    </module>
+    <module name="MethodTypeParameterName"/>
+    <module name="PackageName">
+      <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+    </module>
+    <module name="ParameterName">
+      <property name="format" value="^[a-z][a-zA-Z0-9]*_?$"/>
+    </module>
+    <module name="StaticVariableName">
+      <property name="format" value="^[a-z][a-zA-Z0-9]*_?$"/>
+    </module>
+    <module name="TypeName"/>
+
+    <!-- size violations -->
+    <module name="ExecutableStatementCount">
+      <property name="max" value="15"/>
+    </module>
+    <module name="LineLength">
+      <property name="max" value="120"/>
+      <property name="tabWidth" value="2"/>
+    </module>
+    <module name="MethodLength">
+      <property name="max" value="30"/>
+    </module>
+    <module name="AnonInnerLength"/>
+    <module name="ParameterNumber">
+      <property name="max" value="4"/>
+    </module>
+    <module name="OuterTypeNumber"/>
+    <!-- <module name="MethodCount">
+      <property name="maxTotal" value="50"/>
+      <property name="maxPrivate" value="30"/>
+      <property name="maxPackage" value="30"/>
+      <property name="maxProtected" value="30"/>
+      <property name="maxPublic" value="30"/>
+    </module> -->
+
+    <!-- whitespace -->
+    <module name="GenericWhitespace"/>
+    <module name="EmptyForInitializerPad"/>
+    <module name="EmptyForIteratorPad"/>
+    <module name="MethodParamPad"/>
+    <module name="NoWhitespaceAfter"/>
+    <module name="NoWhitespaceBefore"/>
+    <module name="OperatorWrap"/>
+    <module name="ParenPad"/>
+    <module name="TypecastParenPad"/>
+    <module name="WhitespaceAfter"/>
+    <module name="WhitespaceAround">
+      <property name="tokens" value="ANNOTATION_ARRAY_INIT"/>
+      <property name="allowEmptyConstructors" value="true"/>
+      <property name="allowEmptyMethods" value="true"/>
+    </module>
+  </module>
+
+  <!-- javadoc comments -->
+  <module name="JavadocPackage"/>
+
+  <!-- duplicate code -->
+
+  <!-- header -->
+
+  <!-- miscellaneous -->
+  <module name="NewlineAtEndOfFile">
+    <property name="lineSeparator" value="lf"/>
+  </module>
+
+  <!-- regexp -->
+
+  <!-- size violations -->
+  <module name="FileLength">
+    <property name="max" value="500"/>
+  </module>
+
+  <!-- whitespace -->
+  <module name="FileTabCharacter"/>
+
+  <!-- suppression filters -->
+  <module name="SuppressionCommentFilter">
+    <property name="offCommentFormat" value="@checkstyle:off (.*)"/>
+    <property name="onCommentFormat" value="@checkstyle:on (.*)"/>
+    <property name="checkFormat" value="$1"/>
+  </module>
+  <module name="SuppressWithNearbyCommentFilter">
+    <property name="commentFormat" value="@do-not-check-current-line (.*)"/>
+    <property name="checkFormat" value="$1"/>
+    <property name="influenceFormat" value="0"/>
+  </module>
+  <module name="SuppressWithNearbyCommentFilter">
+    <property name="commentFormat" value="@do-not-check-previous-line (.*)"/>
+    <property name="checkFormat" value="$1"/>
+    <property name="influenceFormat" value="-1"/>
+  </module>
+  <module name="SuppressWithNearbyCommentFilter">
+    <property name="commentFormat" value="@do-not-check-next-line (.*)"/>
+    <property name="checkFormat" value="$1"/>
+    <property name="influenceFormat" value="1"/>
+  </module>
+  <module name="SuppressWithNearbyCommentFilter">
+    <property name="commentFormat" value="@do-not-check-previous-(\d+)-lines (.*)"/>
+    <property name="checkFormat" value="$2"/>
+    <property name="influenceFormat" value="-$1"/>
+  </module>
+  <module name="SuppressWithNearbyCommentFilter">
+    <property name="commentFormat" value="@do-not-check-next-(\d+)-lines (.*)"/>
+    <property name="checkFormat" value="$2"/>
+    <property name="influenceFormat" value="$1"/>
+  </module>
+</module>

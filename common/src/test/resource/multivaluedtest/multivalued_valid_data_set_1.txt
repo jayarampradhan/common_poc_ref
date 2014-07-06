@@ -1,0 +1,59 @@
+
+{
+    "testdata":[
+        {
+            "locale":"en_US",
+            "fname":"Jayaram",
+            "lname":"Pradhan",
+            "email":"jayaramimca@gmail.com",
+            "sex":"M",
+            "pwd":"asajsjhahhdb4q2agsf512ags",
+            "dob":"18-03-1988",
+            "tz":"CET"
+        },
+        {
+            "locale":"en_US",
+            "fname":"Jayaram",
+            "lname":"Pradhan",
+            "email":"jayaramimca@gmail.com",
+            "sex":"M",
+            "pwd":"asajsjhahhdb4q2agsf512ags",
+            "dob":"18-03-1988",
+            "tz":"CET"
+        },
+        {
+            "locale":"en_US",
+            "fname":"Jayaram",
+            "lname":"Pradhan",
+            "email":"jayaramimca@gmail.com",
+            "sex":"M",
+            "pwd":"asajsjhahhdb4q2agsf512ags",
+            "dob":"18-03-1988",
+            "tz":"CET"
+        },
+        {
+            "locale":"en_US",
+            "fname":"Jayaram",
+            "lname":"Pradhan",
+            "email":"jayaramimca@gmail.com",
+            "sex":"M",
+            "pwd":"asajsjhahhdb4q2agsf512ags",
+            "dob":"18-03-1988",
+            "tz":"CET"
+        },
+        {
+            "locale":"en_US",
+            "fname":"Jayaram",
+            "lname":"Pradhan",
+            "email":"jayaramimca@gmail.com",
+            "sex":"M",
+            "pwd":"asajsjhahhdb4q2agsf512ags",
+            "dob":"18-03-1988",
+            "tz":"CET"
+        }
+    ],
+    "loaddata":[
+        
+    ]
+}
+	

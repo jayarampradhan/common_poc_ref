@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:drools="http://drools.org/schema/drools-spring" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://drools.org/schema/drools-spring http://anonsvn.jboss.org/repos/labs/labs/jbossrules/trunk/drools-container/drools-spring/src/main/resources/org/drools/container/spring/drools-spring-1.0.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+	
+	
+	<context:annotation-config />
+	<context:component-scan base-package="com.uimirror.common">
+		<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
+	</context:component-scan>
+
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:application-common-test.properties</value>
+				<!-- <value>file:${data.directory}/ApplicationResource.properties</value> -->
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders">
+			<value>true</value>
+		</property>
+	</bean>
+	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+	
+	<!-- Authnetication DRL -->
+	<drools:kbase id="authenticationRulekbase">
+		<drools:resources>
+			<drools:resource type="DRL" source="classpath:Authentication_Rules.drl"/>
+		</drools:resources>
+	</drools:kbase>
+
+	<drools:ksession id="authenticationStatelessKSession" type="stateless" name="authenticationStatelessKSession" kbase="authenticationRulekbase"/>
+	
+	<bean id="authenticationService" class="com.uimirror.common.authentication.service.AuthenticationServiceImpl"/>
+	<bean id="authenticationCheckPoint" class="com.uimirror.common.authentication.service.AuthenticationCheckPoint"/>
+	
+	<!-- Transaction management -->
+	<tx:annotation-driven />
+	
+	<!-- Mongo Options Factory -->
+  	<bean id="mongoOptionsFactory" class="com.uimirror.common.dao.MongoOptionsFactory">
+  		<property name="maxPoolSize" value="${uimirror.mongo.maxpoolsize:20}"/>
+  		<property name="connectTimeout" value="${uimirror.mongo.connecttimeout:2000}"/>
+  		<property name="readPreference" value="#{T(com.mongodb.ReadPreference).secondaryPreferred()}"/>
+  		<property name="writeConcern" value="#{T(com.mongodb.WriteConcern).ACKNOWLEDGED}"/>
+  	</bean>
+  	
+  	<!-- Mongo Options -->
+  	<bean id="mongoOptions" factory-bean="mongoOptionsFactory" factory-method="getMongoOptions"/>
+  	
+  	<!-- Mongo Client Instance -->
+  	<bean id="mongo" class="com.mongodb.MongoClient">
+  		<constructor-arg name="host" value="${uimirror.mongo.host}"/>
+  		<constructor-arg name="options" ref="mongoOptions"/>
+  	</bean>
+  	
+  	<!-- Mongo DB Factory -->
+  	<bean id="mongoDbFactory" class="com.uimirror.common.dao.MongoDbFactory" destroy-method="close">
+  		<constructor-arg name="mongo" ref="mongo"/>
+  		<property name="dbName" value="${uimirror.mongo.db.temp}"/>
+  	</bean>
+  	<!-- UI Mongo DB Factory -->
+  	<bean id="uimMongoDbFactory" class="com.uimirror.common.dao.MongoDbFactory" destroy-method="close">
+  		<constructor-arg name="mongo" ref="mongo"/>
+  		<property name="dbName" value="${uimirror.mongo.db.uimirror}"/>
+  	</bean>
+  	<!-- Mongo uimirror DB -->
+  	<bean id="uimDB" factory-bean="uimMongoDbFactory" factory-method="getDB"/>
+  	
+  	<!-- Mongo Collection Factory -->
+	<bean id="seqCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.seq:uim_seq}"/>
+	</bean>
+  	
+  	<!-- Seq Collection-->
+	<bean id="seqCollection" factory-bean="seqCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Sequence Collection genrator -->
+	<bean id="sequenceDao" class="com.uimirror.common.dao.SequenceDaoImpl">
+		<property name="seqCollection" ref="seqCollection"/>
+	</bean>
+	
+	<!-- Mongo Collection Factory for user Login Session-->
+	<bean id="loginSessionCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.user.login.session:uim_login_session}"/>
+	</bean>
+	<!-- Login Session Collection-->
+	<bean id="loginSessionCollection" factory-bean="loginSessionCollectionFactory" factory-method="getCollection"/>
+  	
+  	<!-- Mongo Collection Factory for Authentication-->
+	<bean id="authenticationCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.user.authentication:uim_authentication}"/>
+	</bean>
+	<!-- Authentication Collection-->
+	<bean id="authenticationCollection" factory-bean="authenticationCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mongo Collection Factory for Device Meta-->
+	<bean id="deviceCollectionFactory" class="com.uimirror.common.dao.DBCollectionFactory">
+		<constructor-arg name="db" ref="uimDB"/>
+		<constructor-arg name="collectionName" value="${uimirror.mongo.collection.meta.device:device}"/>
+	</bean>
+	<!-- Device Collection-->
+	<bean id="deviceCollection" factory-bean="deviceCollectionFactory" factory-method="getCollection"/>
+	
+	<!-- Mocks -->
+	<bean class="org.mockito.Mockito" factory-method="mock" id="authenticationDao">
+    	<constructor-arg value="com.uimirror.common.authentication.dao.AuthenticationDaoImpl"/>
+  	</bean>
+  	
+  	<bean class="org.mockito.Mockito" factory-method="mock" id="deviceDao">
+    	<constructor-arg value="com.uimirror.common.meta.dao.DeviceDaoImpl"/>
+  	</bean>
+  	
+  	<!-- <bean class="org.mockito.Mockito" factory-method="mock" id="authenticationCheckPoint">
+    	<constructor-arg value="com.uimirror.common.authentication.service.AuthenticationCheckPoint"/>
+  	</bean> -->
+
+</beans>

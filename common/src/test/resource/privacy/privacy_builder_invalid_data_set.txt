@@ -1,0 +1,30 @@
+[
+	{"privacy":null,
+	 "custom":{
+				 "with":[
+				 	],
+				 "notwith":[
+				 		]
+				}
+	
+	},
+	{"privacy":"public",
+	 "custom":{
+				 "with":[
+				 	],
+				 "notwith":[
+				 			]
+				}
+	
+	},
+	
+	{"privacy":"onlyme",
+	 "custom":{
+				 "with":[
+				 	],
+				 "notwith":[
+				 			]
+				}
+	
+	}
+]

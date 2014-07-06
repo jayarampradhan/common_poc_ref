@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+			
+	<!-- Use this file when using the JNDI data source. This should be used 
+		in the EAR files deployed to DEV, QA, AND PROD -->
+	<context:annotation-config />
+	<!-- Activates various annotations to be detected in bean classes -->
+	<!-- Scans the classpath for annotated components that will be auto-registered 
+		as Spring beans. For example @Controller and @Service. Make sure to set the 
+		correct base-package -->
+	<context:component-scan base-package="com.uimirror.api"/>
+	<context:component-scan base-package="com.uimirror.common">
+		<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
+	</context:component-scan>
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:ApplicationResource-${env:dev}.properties</value>
+				<!-- <value>file:${data.directory}/ApplicationResource.properties</value> -->
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders">
+			<value>true</value>
+		</property>
+	</bean>
+	
+	<tx:annotation-driven order="10"/>
+	<aop:aspectj-autoproxy/>
+	
+
+	<!-- Bean register loc for all bean and componet register -->
+	<import resource="uimbeans.xml" />
+	<import resource="uimdbjndi.xml"/>
+	<import resource="uim-calendar-beans.xml"/>
+	<import resource="uim-challenge-beans.xml"/>
+	<import resource="uim-common-beans.xml"/>
+	<import resource="uim-expense-beans.xml"/>
+	<import resource="uim-social-beans.xml"/>
+
+</beans>

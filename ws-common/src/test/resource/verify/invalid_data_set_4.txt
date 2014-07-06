@@ -1,0 +1,63 @@
+{
+    "testdata":[
+        {
+            "ref":"email",
+            "prfid":"1",
+            "token":"",
+            "email":"jayaramimca1@gmail.com"
+            
+        },
+        {
+            "ref":"web",
+            "prfid":"2",
+            "token":" ",
+            "email":"jayaramimca2@gmail.com"
+            
+        },
+        {
+            "ref":"email",
+            "prfid":"3",
+            "token":"1",
+            "email":"jayaramimca3@gmail.com"
+            
+        },
+        {
+            "ref":"web",
+            "prfid":"4",
+            "token":"###",
+            "email":"jayaramimca4@gmail.com"
+            
+        },
+        {
+            "ref":"email",
+            "prfid":"5",
+            "token":"#@$$sfhkskfj",
+            "email":"jayaramimca5@gmail.com"
+            
+        },
+        {
+            "ref":"web",
+            "prfid":"6",
+            "token":"1233\//",
+            "email":"jayaramimca6@gmail.com"
+            
+        },
+        {
+            "ref":"email",
+            "prfid":"7",
+            "token":"!",
+            "email":"jayaramimca7@gmail.com"
+            
+        },
+        {
+            "ref":"web",
+            "prfid":"8",
+            "token":"&^&G13jfd",
+            "email":"jayaramimca8@gmail.com"
+            
+        }
+    ],
+    "loaddata":[
+        
+    ]
+}

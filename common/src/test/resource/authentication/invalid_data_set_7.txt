@@ -1,0 +1,54 @@
+{
+	"testdata": 
+	[
+		{
+			"client_meta": "assmjhasjhaskashkashk",
+			"prfid": "****",
+			"type": "cookie",
+			"token": "askd",
+			"ip": "127.0.0.1",
+			"authid": "12345"
+		},
+
+		{
+			"client_meta": "assmjhasjhaska",
+			"prfid": "@.com",
+			"type": "cookie",
+			"token": "askd",
+			"ip": "127.0.0.1",
+			"authid": "12345"
+		},
+
+		{
+			"client_meta": "assmjhasjhaskashkashk",
+			"prfid": "1",
+			"type": "cookie",
+			"token": "@$fghh",
+			"ip": "127.0.0.1",
+			"authid": "23421"
+		},
+
+		{
+			"client_meta": "assmjhasjhaskashkashk",
+			"prfid": "qwwww",
+			"type": "cookie",
+			"token": "asdef",
+			"ip": "127.0.0.1",
+			"authid": "12345"
+		},
+
+		{
+			"client_meta": "assmjhasjhaskashkashk",
+			"prfid": "12345",
+			"type": "cookie",
+			"token": "",
+			"ip": "127.0.0.1",
+			"authid": ""
+		}
+	],
+
+	"loaddata": 
+	[
+		
+	]
+}

@@ -1,0 +1,137 @@
+{
+    "testdata":[
+        {
+            "id":"1",
+            "name":{"fname":"Jayram",
+            		"lname":"Pradhan"},
+            "sex":"M",
+            "time_zone":"UTC",
+            "locale":"en_US",
+            "currency":"$",
+            "privacy":{"friendrequest":"public",
+            		   "msg":"public",
+            		   "search":{"email":"friend", "mobile":"onlyme"}
+            	}
+        },
+        {   
+        	"id":"2",
+            "name":{"fname":"Gouranga",
+            		"lname":"Mallick"},
+            "sex":"M",
+            "time_zone":"UTC",
+            "locale":"en_US",
+            "currency":"$",
+            "privacy":{"friendrequest":"public",
+            		   "msg":"public",
+            		   "search":{"email":"friend", "mobile":"onlyme"}
+            	}
+        },
+        {   
+       		"id":"3",
+            "name":{"fname":"Jsjhfjs",
+            		"lname":"Pjmxfjhdk"},
+            "sex":"F",
+            "time_zone":"UTC",
+            "locale":"en_US",
+            "currency":"$",
+            "privacy":{"friendrequest":"public",
+            		   "msg":"public",
+            		   "search":{"email":"friend", "mobile":"onlyme"}
+            	}
+        },
+        {
+        	"id":"4",
+            "name":{"fname":"Jvnghghj",
+            		"lname":"Pbcgfhf"},
+            "sex":"M",
+            "time_zone":"UTC",
+            "locale":"en_US",
+            "currency":"$",
+            "privacy":{"friendrequest":"public",
+            		   "msg":"public",
+            		   "search":{"email":"friend", "mobile":"onlyme"}
+            	}            
+        },
+        {    
+        	"id":"5",
+            "name":{"fname":"Jayaaaraaaaaam",
+            		"lname":"Pbbbbbbb"},
+            "sex":"M",
+            "time_zone":"UTC",
+            "locale":"en_US",
+            "currency":"$",
+            "privacy":{"friendrequest":"public",
+            		   "msg":"public",
+            		   "search":{"email":"friend", "mobile":"onlyme"}
+            	}
+         }
+         {
+            "id":"6",
+            "name":{"fname":"Jayprakash",
+            		"lname":"Pradhan"},
+            "sex":"M",
+            "time_zone":"UTC",
+            "locale":"en_US",
+            "currency":"$",
+            "privacy":{"friendrequest":"public",
+            		   "msg":"public",
+            		   "search":{"email":"friend", "mobile":"onlyme"}
+            	}
+        },
+        {   
+        	"id":"7",
+            "name":{"fname":"Gourav",
+            		"lname":"Mallick"},
+            "sex":"M",
+            "time_zone":"UTC",
+            "locale":"en_US",
+            "currency":"$",
+            "privacy":{"friendrequest":"public",
+            		   "msg":"public",
+            		   "search":{"email":"friend", "mobile":"onlyme"}
+            	}
+        },
+        {   
+       		"id":"8",
+            "name":{"fname":"Jasmin",
+            		"lname":"Pandit"},
+            "sex":"F",
+            "time_zone":"UTC",
+            "locale":"en_US",
+            "currency":"$",
+            "privacy":{"friendrequest":"public",
+            		   "msg":"public",
+            		   "search":{"email":"friend", "mobile":"onlyme"}
+            	}
+        },
+        {
+        	"id":"9",
+            "name":{"fname":"Jyoti",
+            		"lname":"Prakash"},
+            "sex":"M",
+            "time_zone":"UTC",
+            "locale":"en_US",
+            "currency":"$",
+            "privacy":{"friendrequest":"public",
+            		   "msg":"public",
+            		   "search":{"email":"friend", "mobile":"onlyme"}
+            	}            
+        },
+        {    
+        	"id":"10",
+            "name":{"fname":"Janmajaya",
+            		"lname":"Pradhan"},
+            "sex":"M",
+            "time_zone":"UTC",
+            "locale":"en_US",
+            "currency":"$",
+            "privacy":{"friendrequest":"public",
+            		   "msg":"public",
+            		   "search":{"email":"friend", "mobile":"onlyme"}
+            	}
+         }
+    ],
+    "loaddata":[
+        
+    ]
+}

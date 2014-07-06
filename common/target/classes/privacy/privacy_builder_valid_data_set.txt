@@ -1,0 +1,26 @@
+[
+	{"privacy":"custom",
+	 "with":[{"id":"1",
+	 		  "name":"gourang"},
+	  		 {"id":"2",
+			  "name":"jyaram"}
+			],
+	
+	 "notwith":[{"id":"3",
+				 "name":"gourang2"},
+				{"id":"4",
+				 "name":"jyaram2"}
+				]
+	},
+	{"privacy":"public",
+	  "with":[ 	],
+	  "notwith":[]
+				},
+	
+	{"privacy":"onlyme",
+	  "with":[ 	],
+	  "notwith":[ ]
+				}
+	
+	
+]

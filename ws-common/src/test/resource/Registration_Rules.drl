@@ -1,0 +1,93 @@
+package com.uimirror.api.register.rule;
+//generated from Decision Table
+import com.uimirror.common.bean.validation.Errors;
+import com.uimirror.api.common.bean.RegisterBean;
+import java.util.Map;
+import java.util.List;
+import function com.uimirror.common.util.DateTimeFactory.isYearGreaterEqualWithTimeZone;
+import function org.apache.commons.validator.routines.EmailValidator.getInstance;
+global com.uimirror.api.common.register.service.RegisterCheckPoint $service;
+declare RegisterBean
+  @Role(event)
+ end
+// rule values at C14, header at C9
+rule "Rule for Locale Validation 1)"
+	salience 65522
+	when
+		$form:RegisterBean(facts["locale"] not matches "(?i)^en(.*)");$errors:Errors();
+	then
+		$errors.addError($form , "fname", "First Name", "i.e Currently user with loacle engilsh can be registered.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C15, header at C9
+rule "Rule for First Name Validation 2(Part 1 of 2)"
+	salience 65521
+	when
+		$form:RegisterBean(facts["locale"] matches "(?i)^en(.*)", facts["fname"] not matches "(?u)^[A-Za-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð,.'-]+$");$errors:Errors();
+	then
+		$errors.addError($form , "fname", "First Name", "i.e Jhon Smit");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C16, header at C9
+rule "Rule for Last Name Validation 3(Part 2 of 2)"
+	salience 65520
+	when
+		$form:RegisterBean(facts["locale"] matches "(?i)^en(.*)", facts["lname"] not matches "(?u)^[A-Za-zàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð,.'-]+$");$errors:Errors();
+	then
+		$errors.addError($form , "lname", "Last Name", "i.e Jhon Smit");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C17, header at C9
+rule "Rule for Email Validation 4"
+	salience 65519
+	when
+		$form:RegisterBean(facts["locale"] matches "(?i)^en(.*)", eval(!getInstance().isValid((String)$form.getFact("email"))));$errors:Errors();
+	then
+		$errors.addError($form , "email", "Email", "i.e xyz@domainname.com");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C18, header at C9
+rule "Rule for Password Validation 5"
+	salience 65518
+	when
+		$form:RegisterBean(facts["locale"] matches "(?i)^en(.*)", facts["pwd"] not matches "(?s).+");$errors:Errors();
+	then
+		$errors.addError($form , "pwd", "Password", "Password Should be Minimum 5 Mix Character or Digit.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C19, header at C9
+rule "Rule for Date Of Birth Validation 6"
+	salience 65517
+	when
+		$form:RegisterBean(facts["locale"] matches "(?i)^en(.*)", eval(!isYearGreaterEqualWithTimeZone((String)$form.getFact("tz"), (String)$form.getFact("dob"), 18)));$errors:Errors();
+	then
+		$errors.addError($form , "dob", "Date Of Birth", "i.e DD-MM-YYYY and you should be minimum 18 Years old to use this service.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C20, header at C9
+rule "Rule for Sex Validation 7"
+	salience 65516
+	when
+		$form:RegisterBean(facts["locale"] matches "(?i)^en(.*)", facts["sex"] not in ("M","F"));$errors:Errors();
+	then
+		$errors.addError($form , "sex", "Sex", "Choose a value from the select menu that you are.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C21, header at C9
+rule "Rule for Email Existance Validation 8"
+	salience 65515
+	when
+		$form:RegisterBean(facts["locale"] matches "(?i)^en(.*)", eval(getInstance().isValid((String)$form.getFact("email"))) && eval($service.isEmailExists((String)$form.getFact("email"), 24)));$errors:Errors();
+	then
+		$errors.addError($form , "email", "Email", "Ouch Somebody has occupied the email you specified, choose a different email or check whether your email is hacked by somebody from your email provider.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   		http://www.springframework.org/schema/context
+	   		http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+			">
+
+	<!-- Utility bean configuration -->
+	<bean id="properties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location">
+			<value>file:${friendsmirror.utility.ws.property.loc}</value>
+		</property>
+	</bean>
+
+	<bean id="propertyUtil" class="com.uimirror.common.util.PropertyUtil"
+		factory-method="createInstance" scope="singleton">
+		<constructor-arg ref="properties" />
+	</bean>
+	<bean id="calendarEventService"
+		class="com.friendsmirror.user.cal.service.impl.CalendarEventServiceImpl" />
+	
+<bean id="mailService"
+		class="com.friendsmirror.user.mail.service.impl.MailServiceImpl" />
+		
+<bean id="discussionService"
+		class="com.friendsmirror.user.discussion.service.impl.DiscussionServiceImpl" />
+		
+	<bean id="discussionValidationService"
+		class="com.friendsmirror.user.discussion.service.impl.DiscussionValidationServiceImpl" />
+		
+</beans>

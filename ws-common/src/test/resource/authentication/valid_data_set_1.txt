@@ -1,0 +1,109 @@
+{
+	"testdata": 
+	[
+		{
+			"type": "cookie",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"prfid": "12345",
+			"authid": "2",
+			"prvauthid": "1",
+			"token": "abcde",
+			"prvtoken": "abcde"
+		},
+
+		{
+			"type": "cookie",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"prfid": "12345",
+			"authid": "3",
+			"prvauthid": "4",
+			"token": "abcde",
+			"prvtoken": "abcde"
+		},
+
+		{
+			"type": "cookie",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"prfid": "12345",
+			"authid": "5",
+			"prvauthid": "6",
+			"token": "abcde",
+			"prvtoken": "abcde"
+		},
+
+		{
+			"type": "cookie",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"prfid": "12345",
+			"authid": "7",
+			"prvauthid": "8",
+			"token": "abcde",
+			"prvtoken": "abcde"
+		},
+
+		{
+			"type": "cookie",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"prfid": "12345",
+			"authid": "9",
+			"prvauthid": "10",
+			"token": "abcde",
+			"prvtoken": "abcde"
+		},
+		{
+			"type": "form",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"user_id": "jayaramimca@gmail.com",
+			"pwd": "1232339",
+			"keepmelogin": "Y",
+			"id_type":"E"
+		},
+		{
+			"type": "form",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"user_id": "jayaramimca@gmail.com",
+			"pwd": "1232339",
+			"keepmelogin": "Y",
+			"id_type":"E"
+		},
+		{
+			"type": "form",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"user_id": "jayaramimca@gmail.com",
+			"pwd": "1232339",
+			"keepmelogin": "Y",
+			"id_type":"E"
+		},
+		{
+			"type": "form",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"user_id": "jayaramimca@gmail.com",
+			"pwd": "1232339",
+			"keepmelogin": "Y",
+			"id_type":"E"
+		},
+		{
+			"type": "form",
+			"client_meta": "assmjhasjhaskashkashk",
+			"ip": "127.0.0.1",
+			"user_id": "jayaramimca@gmail.com",
+			"pwd": "1232339",
+			"keepmelogin": "Y",
+			"id_type":"E"
+		}
+	],
+
+	"loaddata": 
+	[
+		
+	]
+}

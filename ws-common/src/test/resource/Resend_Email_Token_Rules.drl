@@ -1,0 +1,47 @@
+package com.uimirror.api.resend.token.mail.rule;
+//generated from Decision Table
+import com.uimirror.common.bean.validation.Errors;
+import com.uimirror.api.common.bean.ResendTokenEmailBean;
+import java.util.Map;
+import java.util.List;
+import function org.apache.commons.validator.routines.EmailValidator.getInstance;
+global com.uimirror.api.common.register.service.ResendTokenEmailCheckPoint $service;
+declare ResendTokenEmailBean
+  @Role(event)
+ end
+// rule values at C14, header at C9
+rule "Rule for Profile ID Validation 1"
+	salience 65522
+	when
+		$form:ResendTokenEmailBean(facts["prfid"] not matches "^[0-9]+");$errors:Errors();
+	then
+		$errors.addError($form , "prfid", "Profile Id", "Seems You are trying to tampering page.");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C15, header at C9
+rule "Rule for Email Validation 2"
+	salience 65521
+	when
+		$form:ResendTokenEmailBean(eval(!getInstance().isValid((String)$form.getFact("email"))));$errors:Errors();
+	then
+		$errors.addError($form , "email", "Email", "We are working correctly, don't modify the page details");
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+// rule values at C16, header at C9
+rule "Rule for User Validation 3"
+	salience 65520
+	when
+		$form:ResendTokenEmailBean(facts["prfid"] matches ".*" && eval(getInstance().isValid((String)$form.getFact("email"))));$errors:Errors();
+	then
+		Map<String, Object> res =  $service.isValidResendRequest((String)$form.getFact("prfid"), (String)$form.getFact("email"));
+if(res != null){
+ $form.setStates(res);
+}else{
+ $errors.addError($form , "prfid", "Profile Id", "Requested Resource Not found, suggest to re register.");
+}
+		kcontext.getKnowledgeRuntime().halt();
+end
+
+
